@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Pengukur Kebisingan</string>
+    <string name="start">Mulai</string>
+    <string name="stop">Berhenti</string>
+    <string name="maksimal">Maksimal</string>
+    <string name="saat_ini">Saat ini</string>
+    <string name="minimal">Minimal</string>
+    <string name="_00_00_00">00:00.00</string>
+    <string name="simpan">Simpan</string>
+    <string name="keterangan">Keterangan</string>
+    <string name="judul">Judul</string>
+    <string name="simpan_data">Simpan Data</string>
+    <string name="batal">Batal</string>
+    <string name="export_data">export data</string>
+    <string name="confirm_delete_title">Apakah data ini akan dihapus?</string>
+    <string name="confirm_delete_desc">Data yang dihapus tidak dapat dikembalikan</string>
+
+    <string name="max_db">Max db: <b><font color="#FF0000">%s</font> db</b></string>
+    <string name="min_db">Min db: <b><font color="#1074B6">%s</font> db</b></string>
+    <string name="waktu">Waktu</string>
+    <string name="nilai">Nilai</string>
+    <string name="lihat_daftar_data">Lihat Daftar Data</string>
+    <string name="ok">OK</string>
+</resources>
