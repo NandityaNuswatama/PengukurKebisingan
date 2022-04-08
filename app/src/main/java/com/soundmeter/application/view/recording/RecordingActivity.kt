@@ -18,8 +18,7 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.soundmeter.application.databinding.ActivityRecordingBinding
-import com.soundmeter.application.utils.DateUtils
-import com.soundmeter.application.utils.Timer
+import com.soundmeter.application.utils.*
 import com.soundmeter.application.view.list.ListDataActivity
 import dagger.hilt.android.AndroidEntryPoint
 import org.threeten.bp.Instant
@@ -38,6 +37,8 @@ class RecordingActivity : AppCompatActivity(), Timer.OnTimerTickListener {
     private lateinit var recorder: MediaRecorder
     private var dirPath = ""
     private var fileName = ""
+    private var speed = FAST
+    private var type = TYPE_A
     
     private lateinit var timer: Timer
     
@@ -45,19 +46,20 @@ class RecordingActivity : AppCompatActivity(), Timer.OnTimerTickListener {
     private var minDB = 100f
     private var maxDB = 0f
     private var lastDbCount = mDbCount
-    private val min = 0.5f
+    private val minChange = 0.5f
     private var value = 0f
     
-    private var listSample = ArrayList<Pair<String, String>>()
     private val df1 = DecimalFormat("####.0")
+    
+    private var listSample = ArrayList<Pair<String, String>>()
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRecordingBinding.inflate(layoutInflater)
         setContentView(binding.root)
-    
+        
         initListener()
-    
+        
         timer = Timer(this)
     }
     
@@ -88,6 +90,14 @@ class RecordingActivity : AppCompatActivity(), Timer.OnTimerTickListener {
             btnList.setOnClickListener {
                 ListDataActivity.start(this@RecordingActivity)
             }
+            
+            swSpeed.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) speed = SLOW else speed = FAST
+            }
+            
+            swType.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) type = TYPE_C else type = TYPE_A
+            }
         }
     }
     
@@ -95,6 +105,8 @@ class RecordingActivity : AppCompatActivity(), Timer.OnTimerTickListener {
         with(binding) {
             btnStart.isEnabled = !record
             btnStop.isEnabled = record
+            swType.isClickable = !record
+            swSpeed.isClickable = !record
         }
     }
     
@@ -112,7 +124,7 @@ class RecordingActivity : AppCompatActivity(), Timer.OnTimerTickListener {
                             report.areAllPermissionsGranted() -> {
                                 startRecording()
                                 setIsRecording(true)
-                                timer.start()
+                                timer.start(speed, type)
                             }
                             report.isAnyPermissionPermanentlyDenied -> {
                                 try {
@@ -147,6 +159,10 @@ class RecordingActivity : AppCompatActivity(), Timer.OnTimerTickListener {
     
     private fun startRecording() {
         
+        binding.tvMin.text = "0"
+        binding.tvMax.text = "0"
+        binding.tvCurrent.text = "0"
+        
         recorder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             MediaRecorder(this)
         } else {
@@ -178,35 +194,68 @@ class RecordingActivity : AppCompatActivity(), Timer.OnTimerTickListener {
         return Instant.ofEpochMilli(millis).toString()
     }
     
-    private fun countDb() {
-    
+    private fun getVolume(type: String) {
+        
         val volume = recorder.maxAmplitude
-        Timber.d(volume.toString())
-        if (volume in 1..999999) {
-            val db = 20 * (log10(volume.toDouble())).toFloat()
-            Timber.d(db.toString())
-    
-            value = if (db > lastDbCount) {
-                if (db - lastDbCount > min) db - lastDbCount else min
-            } else {
-                if (db - lastDbCount < -min) db - lastDbCount else -min
+        if (type == TYPE_A) {
+            if (volume in 31..10009) {
+                countDb(volume, type)
             }
-            mDbCount = lastDbCount + value * 0.2f
-            lastDbCount = mDbCount
-            if (mDbCount < minDB) minDB = mDbCount
-            if (mDbCount > maxDB) maxDB = mDbCount
-    
-            with(binding) {
-                tvMax.text = df1.format(maxDB)
-                tvMin.text = df1.format(minDB)
-                tvCurrent.text = df1.format(mDbCount)
+        } else {
+            if (volume in 315..3162280) {
+                
+                countDb(volume, type)
             }
         }
     }
     
-    override fun onTimerTick(duration: String, seconds: Long, millis: Long) {
+    private fun countDb(volume: Int, type: String) {
+        val db = 20 * (log10(volume.toDouble())).toFloat()
+        
+        Timber.d("volume: $volume")
+        Timber.d("db: $db")
+        
+        value = if (db > lastDbCount) {
+            if (db - lastDbCount > minChange) db - lastDbCount else minChange
+        } else {
+            if (db - lastDbCount < -minChange) db - lastDbCount else -minChange
+        }
+        mDbCount = lastDbCount + value * 0.2f
+        lastDbCount = mDbCount
+        
+        when (type) {
+            
+            TYPE_A -> {
+                if (mDbCount in 30f..80f) {
+                    if (mDbCount < minDB) minDB = mDbCount
+                    if (mDbCount > maxDB) maxDB = mDbCount
+                }
+            }
+            TYPE_C -> {
+                if (mDbCount in 50f..130f) {
+                    if (minDB < 50) minDB = mDbCount
+                    if (mDbCount < minDB ) minDB = mDbCount
+                    if (mDbCount > maxDB) maxDB = mDbCount
+                }
+            }
+        }
+        
+        with(binding) {
+            tvMax.text = df1.format(maxDB)
+            tvMin.text = df1.format(minDB)
+            tvCurrent.text = df1.format(mDbCount)
+        }
+    }
+    
+    override fun onTimerTick(duration: String, seconds: Long, millis: Long, speed: String, type: String) {
         binding.tvTimer.text = duration
-        countDb()
+        
+        when (speed) {
+            
+            SLOW -> if (seconds.toInt() % 1 == 0 && millis == 0L) getVolume(type)
+            
+            FAST -> getVolume(type)
+        }
         
         if (seconds.toInt() % 5 == 0 && millis == 0L)
             listSample.add(Pair(duration, df1.format(mDbCount)))

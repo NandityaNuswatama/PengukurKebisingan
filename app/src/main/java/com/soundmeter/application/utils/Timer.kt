@@ -2,11 +2,15 @@ package com.soundmeter.application.utils
 
 import android.os.Handler
 import android.os.Looper
+import timber.log.Timber
 
 class Timer(listener: OnTimerTickListener) {
     
+    private var _speed = ""
+    private var _type = ""
+    
     interface OnTimerTickListener{
-        fun onTimerTick(duration: String, seconds: Long, millis: Long)
+        fun onTimerTick(duration: String, seconds: Long, millis: Long, speed: String, type: String)
     }
     
     private var handler = Handler(Looper.getMainLooper())
@@ -19,11 +23,13 @@ class Timer(listener: OnTimerTickListener) {
         runnable = Runnable {
             duration += delay
             handler.postDelayed(runnable, delay)
-            listener.onTimerTick(format(), (duration / 1000) % 60, duration % 1000)
+            listener.onTimerTick(format(), (duration / 1000) % 60, duration % 1000, _speed, _type)
         }
     }
     
-    fun start(){
+    fun start(speed: String, type: String){
+        _speed = speed
+        _type = type
         handler.postDelayed(runnable, delay)
     }
     

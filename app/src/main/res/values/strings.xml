@@ -21,4 +21,8 @@
     <string name="nilai">Nilai</string>
     <string name="lihat_daftar_data">Lihat Daftar Data</string>
     <string name="ok">OK</string>
+    <string name="slow">Slow</string>
+    <string name="fast">Fast</string>
+    <string name="type_a">Tipe A</string>
+    <string name="tipe_c">Tipe C</string>
 </resources>

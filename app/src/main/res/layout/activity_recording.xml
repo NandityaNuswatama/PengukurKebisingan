@@ -115,6 +115,71 @@
         app:layout_constraintStart_toStartOf="@id/tvMinTitle"
         app:layout_constraintEnd_toEndOf="@id/tvMinTitle"/>
 
+    <TextView
+        android:id="@+id/tvFast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fast"
+        android:layout_marginTop="32dp"
+        android:textAppearance="?attr/textAppearanceBody1"
+        app:layout_constraintTop_toBottomOf="@id/tvMax"
+        app:layout_constraintStart_toStartOf="@id/tvMaxTitle"/>
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/swSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:trackTint="@color/blue_accent_light"
+        app:thumbTint="@color/blue_accent"
+        android:padding="8dp"
+        android:textAppearance="?attr/textAppearanceBody1"
+        app:layout_constraintTop_toTopOf="@id/tvFast"
+        app:layout_constraintStart_toEndOf="@id/tvFast"
+        app:layout_constraintBottom_toBottomOf="@id/tvFast"/>
+
+    <TextView
+        android:id="@+id/tvSlow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/slow"
+        android:textAppearance="?attr/textAppearanceBody1"
+        app:layout_constraintStart_toEndOf="@id/swSpeed"
+        app:layout_constraintTop_toTopOf="@id/swSpeed"
+        app:layout_constraintBottom_toBottomOf="@id/swSpeed"/>
+
+    <TextView
+        android:id="@+id/tvTypeA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/type_a"
+        android:textAppearance="?attr/textAppearanceBody1"
+        app:layout_constraintEnd_toStartOf="@id/swType"
+        app:layout_constraintTop_toTopOf="@id/swType"
+        app:layout_constraintBottom_toBottomOf="@id/swType"/>
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/swType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:trackTint="@color/blue_accent_light"
+        app:thumbTint="@color/blue_accent"
+        android:padding="8dp"
+        android:textAppearance="?attr/textAppearanceBody1"
+        app:layout_constraintTop_toTopOf="@id/tvTypeC"
+        app:layout_constraintEnd_toStartOf="@id/tvTypeC"
+        app:layout_constraintBottom_toBottomOf="@id/tvTypeC"/>
+
+    <TextView
+        android:id="@+id/tvTypeC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tipe_c"
+        android:textAppearance="?attr/textAppearanceBody1"
+        app:layout_constraintBottom_toBottomOf="@+id/tvFast"
+        app:layout_constraintEnd_toEndOf="@id/tvMinTitle"
+        app:layout_constraintTop_toTopOf="@+id/tvFast"
+        />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnList"
         android:layout_width="0dp"
