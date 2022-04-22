@@ -24,7 +24,7 @@ class ListViewModel @Inject constructor(
     
     fun getListData(){
         viewModelScope.launch {
-            _soundList.value = getListDataUseCase.invoke()
+            _soundList.value = getListDataUseCase.invoke().sortedByDescending { it.id }
         }
     }
     
