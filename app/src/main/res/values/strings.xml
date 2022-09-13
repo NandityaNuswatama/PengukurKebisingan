@@ -15,8 +15,10 @@
     <string name="confirm_delete_title">Apakah data ini akan dihapus?</string>
     <string name="confirm_delete_desc">Data yang dihapus tidak dapat dikembalikan</string>
 
-    <string name="max_db">Max db: <b><font color="#FF0000">%s</font> db</b></string>
-    <string name="min_db">Min db: <b><font color="#1074B6">%s</font> db</b></string>
+    <string name="max_db">Max db: <b><font fgcolor='#FF0000'>%s</font> db</b></string>
+    <string name="min_db">Min db: <b><font fgcolor='#1074B6'>%s</font> db</b></string>
+    <string name="average_db">Rata-rata db: <b><font fgcolor='#1074B6'>%s</font> db</b></string>
+    <string name="noise_db">Hasil Kebisingan: <b><font fgcolor='#1074B6'>%s</font> db</b></string>
     <string name="waktu">Waktu</string>
     <string name="nilai">Nilai</string>
     <string name="lihat_daftar_data">Lihat Daftar Data</string>
