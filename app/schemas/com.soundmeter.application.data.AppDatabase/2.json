@@ -1,0 +1,90 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "a545d7f176b2286c040afa91fc7a2477",
+    "entities": [
+      {
+        "tableName": "sound_data",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `subtitle` TEXT NOT NULL, `date` TEXT NOT NULL, `maxDb` TEXT NOT NULL, `minDb` TEXT NOT NULL, `averageDb` TEXT NOT NULL DEFAULT '0.0', `noiseDb` TEXT NOT NULL DEFAULT '0.0', `listTime` TEXT NOT NULL, `listDb` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "subtitle",
+            "columnName": "subtitle",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "maxDb",
+            "columnName": "maxDb",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "minDb",
+            "columnName": "minDb",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "averageDb",
+            "columnName": "averageDb",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'0.0'"
+          },
+          {
+            "fieldPath": "noiseDb",
+            "columnName": "noiseDb",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'0.0'"
+          },
+          {
+            "fieldPath": "listTime",
+            "columnName": "listTime",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "listDb",
+            "columnName": "listDb",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a545d7f176b2286c040afa91fc7a2477')"
+    ]
+  }
+}

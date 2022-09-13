@@ -1,9 +1,6 @@
 package com.soundmeter.application.data
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
+import androidx.room.*
 import com.soundmeter.application.utils.ListStringConverter
 
 @Entity(
@@ -17,6 +14,10 @@ data class SoundEntity (
     var date: String,
     var maxDb: String,
     var minDb: String,
+    @ColumnInfo(defaultValue = "0.0")
+    var averageDb: String,
+    @ColumnInfo(defaultValue = "0.0")
+    var noiseDb: String,
     var listTime: List<String>,
     var listDb: List<String>,
 )

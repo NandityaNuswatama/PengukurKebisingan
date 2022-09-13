@@ -40,7 +40,7 @@ class BottomSheetSaveData : BottomSheetDialogFragment() {
     }
     
     private fun initView() {
-        
+        isCancelable = false
         binding.edtTitle.doAfterTextChanged {
             binding.btnOk.isEnabled = it.toString().isNotEmpty()
         }
