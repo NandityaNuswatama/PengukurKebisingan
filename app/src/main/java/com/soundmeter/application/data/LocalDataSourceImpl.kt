@@ -4,6 +4,7 @@ import com.soundmeter.application.domain.LocalDataSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -27,7 +28,7 @@ class LocalDataSourceImpl @Inject constructor(
     }
     
     override fun deleteData(id: Int) {
-        CoroutineScope(Dispatchers.IO).launch {
+        runBlocking {
             soundDao.deleteData(id)
         }
     }

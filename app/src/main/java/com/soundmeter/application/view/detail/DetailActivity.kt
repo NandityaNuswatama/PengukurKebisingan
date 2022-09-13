@@ -88,10 +88,11 @@ class DetailActivity : AppCompatActivity() {
                 BottomSheetWarning.Builder(supportFragmentManager)
                     .setTitle(getString(R.string.confirm_delete_title))
                     .setMessage(getString(R.string.confirm_delete_desc))
-                    .setPositive { viewModel.deleteData(dataId) }
+                    .setPositive {
+                        viewModel.deleteData(dataId)
+                        finish()
+                    }
                     .show()
-
-                finish()
                 true
             }
         }

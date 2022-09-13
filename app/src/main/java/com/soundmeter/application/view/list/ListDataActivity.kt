@@ -18,6 +18,11 @@ import com.soundmeter.application.utils.FileUtils
 import com.soundmeter.application.utils.csvFileName
 import com.soundmeter.application.view.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class ListDataActivity : AppCompatActivity() {
@@ -47,22 +52,6 @@ class ListDataActivity : AppCompatActivity() {
         
         with(binding.rvSound) {
             adapter = soundAdapter
-            addItemDecoration(
-                object : RecyclerView.ItemDecoration() {
-                    override fun getItemOffsets(
-                        outRect: Rect,
-                        view: View,
-                        parent: RecyclerView,
-                        state: RecyclerView.State
-                    ) {
-                        val position = parent.getChildAdapterPosition(view)
-                        outRect.left = 8
-                        outRect.right = 8
-                        outRect.top = 16
-                        outRect.bottom = if (position == state.itemCount - 1) 16 else 0
-                    }
-                }
-            )
         }
     }
     
@@ -72,6 +61,7 @@ class ListDataActivity : AppCompatActivity() {
             binding.imgEmpty.isGone = it.isNotEmpty()
             listSounds = it
             soundAdapter.submitList(it)
+            Timber.tag("CalculateNoise").d("${it.map { it.title }}")
         }
     }
     
@@ -97,10 +87,10 @@ class ListDataActivity : AppCompatActivity() {
                 BottomSheetWarning.Builder(supportFragmentManager)
                     .setTitle(getString(R.string.confirm_delete_title))
                     .setMessage(getString(R.string.confirm_delete_desc))
-                    .setPositive { viewModel.delete(it) }
+                    .setPositive {
+                        viewModel.delete(it)
+                    }
                     .show()
-                
-                viewModel.getListData()
             }
         }
     }
@@ -111,11 +101,11 @@ class ListDataActivity : AppCompatActivity() {
             
             FileUtils.exportMoviesWithDirectorsToCSVFile(csvFile, listSounds)
             
-            Toast.makeText(this, "Generated", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "CSV Successfully Generated", Toast.LENGTH_LONG).show()
             val intent = FileUtils.goToFileIntent(this, csvFile)
             startActivity(intent)
         } else {
-            Toast.makeText(this, "Not Generated", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "CSV Failed to Generated", Toast.LENGTH_LONG).show()
         }
     }
     
