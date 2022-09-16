@@ -26,26 +26,28 @@ class RecordingViewModel @Inject constructor(
         listRecord.forEach { listDb.add(it.second) }
 
         val listDouble = listDb.map { it.toDouble() }
-        val dbSize = listDouble.size
+        val listGrouping = mutableListOf<Double>()
 
-        val listGrouping = mutableListOf<Pair<Double, Int>>()
-        listGrouping.add(Pair(30.0, listDouble.groupBy { it in 30.0..34.0 }.values.last().size.validateGroup(dbSize)))
-        listGrouping.add(Pair(35.0, listDouble.groupBy { it in 35.0..39.0 }.values.last().size.validateGroup(dbSize)))
-        listGrouping.add(Pair(40.0, listDouble.groupBy { it in 40.0..44.0 }.values.last().size.validateGroup(dbSize)))
-        listGrouping.add(Pair(45.0, listDouble.groupBy { it in 45.0..49.0 }.values.last().size.validateGroup(dbSize)))
-        listGrouping.add(Pair(50.0, listDouble.groupBy { it in 50.0..54.0 }.values.last().size.validateGroup(dbSize)))
-        listGrouping.add(Pair(55.0, listDouble.groupBy { it in 55.0..59.0 }.values.last().size.validateGroup(dbSize)))
-        listGrouping.add(Pair(60.0, listDouble.groupBy { it in 60.0..64.0 }.values.last().size.validateGroup(dbSize)))
-        listGrouping.add(Pair(65.0, listDouble.groupBy { it in 65.0..69.0 }.values.last().size.validateGroup(dbSize)))
-        listGrouping.add(Pair(70.0, listDouble.groupBy { it in 70.0..74.0 }.values.last().size.validateGroup(dbSize)))
-        listGrouping.add(Pair(75.0, listDouble.groupBy { it in 75.0..79.0 }.values.last().size.validateGroup(dbSize)))
-        listGrouping.add(Pair(80.0, listDouble.groupBy { it in 80.0..84.0 }.values.last().size.validateGroup(dbSize)))
-        listGrouping.add(Pair(85.0, listDouble.groupBy { it in 85.0..89.0 }.values.last().size.validateGroup(dbSize)))
-        listGrouping.add(Pair(90.0, listDouble.groupBy { it in 90.0..94.0 }.values.last().size.validateGroup(dbSize)))
-        listGrouping.add(Pair(95.0, listDouble.groupBy { it in 95.0..99.0 }.values.last().size.validateGroup(dbSize)))
-        listGrouping.add(Pair(100.0, listDouble.groupBy { it in 100.0..104.0 }.values.last().size.validateGroup(dbSize)))
-        listGrouping.add(Pair(105.0, listDouble.groupBy { it in 105.0..109.0 }.values.last().size.validateGroup(dbSize)))
-        listGrouping.add(Pair(110.0, listDouble.groupBy { it in 110.0..114.0 }.values.last().size.validateGroup(dbSize)))
+        listDouble.forEach { db ->
+            if (db in 30.0..34.9) listGrouping.add(30.0)
+            if (db in 35.0..39.9) listGrouping.add(35.0)
+            if (db in 40.0..44.9) listGrouping.add(40.0)
+            if (db in 45.0..49.9) listGrouping.add(45.0)
+            if (db in 50.0..54.9) listGrouping.add(50.0)
+            if (db in 55.0..59.9) listGrouping.add(55.0)
+            if (db in 60.0..64.9) listGrouping.add(60.0)
+            if (db in 65.0..69.9) listGrouping.add(65.0)
+            if (db in 70.0..74.9) listGrouping.add(70.0)
+            if (db in 75.0..79.9) listGrouping.add(75.0)
+            if (db in 80.0..84.9) listGrouping.add(80.0)
+            if (db in 85.0..89.9) listGrouping.add(85.0)
+            if (db in 90.0..94.9) listGrouping.add(90.0)
+            if (db in 95.0..99.9) listGrouping.add(95.0)
+            if (db in 100.0..104.9) listGrouping.add(100.0)
+            if (db in 105.0..109.9) listGrouping.add(105.0)
+            if (db in 110.0..114.9) listGrouping.add(110.0)
+        }
+
 
         val data = SoundEntity(
             id = 0,
@@ -55,7 +57,7 @@ class RecordingViewModel @Inject constructor(
             minDb = min,
             maxDb = max,
             averageDb = listDouble.average().toString().take(4),
-            noiseDb = calculateNoise(listGrouping).toString().take(4),
+            noiseDb = calculateNoise(listGrouping.sorted()).toString().take(4),
             listTime = listTime,
             listDb = listDb
         )
@@ -63,18 +65,22 @@ class RecordingViewModel @Inject constructor(
         insertDataUseCase.invoke(data)
     }
 
-    private fun Int.validateGroup(listSize: Int):Int {
-        return if (this == listSize) 0 else this
-    }
-
-    private fun calculateNoise(listGrouping: List<Pair<Double, Int>>): Double {
+    private fun calculateNoise(listGrouping: List<Double>): Double {
         return if (listGrouping.isNotEmpty()) {
-            val modus = listGrouping.maxOf { it.second }
-            val modusIndex = listGrouping.indexOf(listGrouping.find { it.second == modus })
-            val xValue = listGrouping[modusIndex].first
-            val p1 = listGrouping[modusIndex - 1].second
-            val p2 = listGrouping[modusIndex + 1].second
-            xValue.plus(p1.times(5).div(p1.plus(p2)))
+            val setValues = listGrouping.groupBy { it }.values
+            val distinct = listGrouping.distinct()
+            val modusSize = setValues.maxByOrNull { it.size }?.size?.toDouble() ?: 0.0
+            val modus = setValues.maxByOrNull { it.size }?.first() ?: 0.0
+            val modusIndex = distinct.indexOf(modus)
+            if (modusIndex != 0 && modusIndex != distinct.size - 1) {
+                val p1 =
+                    if (modus - distinct[modusIndex - 1] > 5.0) modusSize
+                    else modusSize - listGrouping.filter { it == distinct[modusIndex - 1] }.size.toDouble()
+                val p2 =
+                    if (distinct[modusIndex + 1] - modus > 5.0) modusSize
+                    else modusSize + listGrouping.filter { it == distinct[modusIndex + 1] }.size.toDouble()
+                modus.plus(p1.plus(5.0).div(p1.plus(p2)))
+            } else modus
         } else 0.0
     }
 }

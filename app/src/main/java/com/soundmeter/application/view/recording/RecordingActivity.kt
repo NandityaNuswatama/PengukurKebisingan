@@ -256,6 +256,6 @@ class RecordingActivity : AppCompatActivity(), Timer.OnTimerTickListener {
         if (seconds.toInt() % 5 == 0 && millis == 0L)
             listSample.add(Pair(duration, df1.format(mDbCount)))
 
-        binding.btnStop.isEnabled = listSample.size > 1
+        binding.btnStop.isEnabled = listSample.size > 0
     }
 }
