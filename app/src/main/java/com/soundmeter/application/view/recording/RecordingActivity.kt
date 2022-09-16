@@ -81,7 +81,7 @@ class RecordingActivity : AppCompatActivity(), Timer.OnTimerTickListener {
                         viewModel.insertData(
                             it.first, it.second,
                             DateUtils.getDateFromMillis(System.currentTimeMillis()),
-                            tvMax.text.toString(), tvMin.text.toString(), listSample
+                            tvMin.text.toString(), tvMax.text.toString(), listSample
                         )
                     }
                     .show()
@@ -92,11 +92,11 @@ class RecordingActivity : AppCompatActivity(), Timer.OnTimerTickListener {
             }
 
             swSpeed.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) speed = SLOW else speed = FAST
+                speed = if (isChecked) SLOW else FAST
             }
 
             swType.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) type = TYPE_C else type = TYPE_A
+                type = if (isChecked) TYPE_C else TYPE_A
             }
         }
     }

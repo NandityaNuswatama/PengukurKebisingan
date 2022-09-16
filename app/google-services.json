@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "451242154714",
+    "project_id": "pengukur-kebisingan",
+    "storage_bucket": "pengukur-kebisingan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:451242154714:android:5db56f3ab141f0ba36a3e3",
+        "android_client_info": {
+          "package_name": "com.soundmeter.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "451242154714-osk8comt70aiasnoq5bcfnpn8fcj5dp9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVx4I4YKYM8D_Xosot3f0kRAnSrOS5HTg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "451242154714-osk8comt70aiasnoq5bcfnpn8fcj5dp9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
