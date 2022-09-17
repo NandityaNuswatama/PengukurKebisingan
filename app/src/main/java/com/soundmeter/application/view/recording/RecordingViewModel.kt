@@ -3,6 +3,7 @@ package com.soundmeter.application.view.recording
 import androidx.lifecycle.ViewModel
 import com.soundmeter.application.data.SoundEntity
 import com.soundmeter.application.domain.InsertDataUseCase
+import com.soundmeter.application.utils.toDoubleReplaceComma
 import dagger.hilt.android.lifecycle.HiltViewModel
 import timber.log.Timber
 import javax.inject.Inject
@@ -25,7 +26,7 @@ class RecordingViewModel @Inject constructor(
         val listDb = mutableListOf<String>()
         listRecord.forEach { listDb.add(it.second) }
 
-        val listDouble = listDb.map { it.toDouble() }
+        val listDouble = listDb.map { it.toDoubleReplaceComma() }
         val listGrouping = mutableListOf<Double>()
 
         listDouble.forEach { db ->
