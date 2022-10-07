@@ -73,6 +73,7 @@ class RecordingActivity : AppCompatActivity(), Timer.OnTimerTickListener {
 
             btnStop.setOnClickListener {
                 setIsRecording(false)
+                btnStop.isEnabled = false
                 recorder.stop()
                 timer.stop()
 
