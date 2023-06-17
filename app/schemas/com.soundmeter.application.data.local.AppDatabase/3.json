@@ -1,0 +1,108 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 3,
+    "identityHash": "5054698b59c850ea7db925c4a677e97c",
+    "entities": [
+      {
+        "tableName": "sound_data",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `subtitle` TEXT NOT NULL, `date` TEXT NOT NULL, `timeStamp` INTEGER NOT NULL, `maxDb` TEXT NOT NULL, `minDb` TEXT NOT NULL, `averageDb` TEXT NOT NULL DEFAULT '0.0', `noiseDb` TEXT NOT NULL DEFAULT '0.0', `latitude` TEXT NOT NULL, `longitude` TEXT NOT NULL, `listTime` TEXT NOT NULL, `listDb` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "subtitle",
+            "columnName": "subtitle",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timeStamp",
+            "columnName": "timeStamp",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "maxDb",
+            "columnName": "maxDb",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "minDb",
+            "columnName": "minDb",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "averageDb",
+            "columnName": "averageDb",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'0.0'"
+          },
+          {
+            "fieldPath": "noiseDb",
+            "columnName": "noiseDb",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'0.0'"
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "listTime",
+            "columnName": "listTime",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "listDb",
+            "columnName": "listDb",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5054698b59c850ea7db925c4a677e97c')"
+    ]
+  }
+}

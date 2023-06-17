@@ -3,11 +3,10 @@ package com.soundmeter.application.view.list
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.soundmeter.application.data.SoundEntity
+import com.soundmeter.application.data.local.SoundEntity
 import com.soundmeter.application.domain.DeleteDataUseCase
 import com.soundmeter.application.domain.GetListDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel

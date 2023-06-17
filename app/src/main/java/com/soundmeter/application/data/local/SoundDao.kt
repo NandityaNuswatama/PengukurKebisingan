@@ -1,4 +1,4 @@
-package com.soundmeter.application.data
+package com.soundmeter.application.data.local
 
 import androidx.room.Dao
 import androidx.room.Insert

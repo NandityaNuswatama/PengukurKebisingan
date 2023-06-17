@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.soundmeter.application.data.SoundEntity
+import com.soundmeter.application.data.local.SoundEntity
 import com.soundmeter.application.databinding.ItemSoundBinding
 
 class SoundAdapter: ListAdapter<SoundEntity, SoundAdapter.SoundViewHolder>(SoundComparator) {

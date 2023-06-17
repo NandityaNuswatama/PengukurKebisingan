@@ -1,52 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:background="@drawable/bg_bottom_sheet"
+    android:orientation="vertical"
+    android:paddingBottom="24dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="16dp"
+        android:src="@drawable/handle_pull_down" />
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/simpan_data"
         android:textAppearance="?attr/textAppearanceHeadline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/simpan_data" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:layout_marginHorizontal="16dp">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtTitle"
+        app:endIconMode="dropdown_menu">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/edtArea"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/judul"
-            android:inputType="text"
-            android:maxLines="1"
-            android:textAppearance="?attr/textAppearanceBody1"/>
+            android:cursorVisible="false"
+            android:completionThreshold="3"
+            android:drawableEnd="@drawable/ic_drop_down"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="@string/area"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="12dp"
+            android:textAppearance="?attr/textAppearanceBody1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:layout_marginHorizontal="16dp">
+        android:layout_marginHorizontal="16dp"
+        app:endIconMode="clear_text"
+        android:layout_marginTop="8dp">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtSubtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/keterangan"
+            android:imeOptions="actionDone"
+            android:maxLines="3"
+            android:textAppearance="?attr/textAppearanceBody1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="@string/pengambilan_data"
             android:inputType="text"
             android:maxLines="3"
-            android:textAppearance="?attr/textAppearanceBody1"/>
+            android:textAppearance="?attr/textAppearanceBody1"
+            tools:text="5 Juni 2023" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/koordinat"
+        android:textAppearance="?attr/textAppearanceHeadline3"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtLatitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="@string/latitude"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textAppearance="?attr/textAppearanceBody1"
+                tools:text="5 Juni 2023" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtLongitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="@string/longitude"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textAppearance="?attr/textAppearanceBody1"
+                tools:text="5 Juni 2023" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -62,10 +171,10 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="16dp"
             android:layout_weight="1"
+            android:text="@string/batal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/message"
-            android:text="@string/batal" />
+            app:layout_constraintTop_toBottomOf="@id/message" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnOk"
@@ -73,11 +182,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="16dp"
-            android:enabled="false"
             android:layout_weight="1"
+            android:enabled="false"
+            android:text="@string/simpan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/message"
-            android:text="@string/simpan" />
+            app:layout_constraintTop_toBottomOf="@id/message" />
     </LinearLayout>
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.soundmeter.application.data
+package com.soundmeter.application.data.local
 
 import com.soundmeter.application.domain.LocalDataSource
 import kotlinx.coroutines.CoroutineScope
@@ -31,5 +31,9 @@ class LocalDataSourceImpl @Inject constructor(
         runBlocking {
             soundDao.deleteData(id)
         }
+    }
+
+    override fun updateUploaded() {
+        TODO("Not yet implemented")
     }
 }

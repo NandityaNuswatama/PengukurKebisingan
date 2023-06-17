@@ -1,24 +1,25 @@
 package com.soundmeter.application.view.recording
 
-import android.Manifest
-import android.content.ActivityNotFoundException
-import android.content.Intent
 import android.media.MediaRecorder
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.MultiplePermissionsReport
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.orhanobut.hawk.Hawk
 import com.soundmeter.application.databinding.ActivityRecordingBinding
-import com.soundmeter.application.utils.*
+import com.soundmeter.application.utils.DateUtils
+import com.soundmeter.application.utils.FAST
+import com.soundmeter.application.utils.LATITUDE
+import com.soundmeter.application.utils.LONGITUDE
+import com.soundmeter.application.utils.SLOW
+import com.soundmeter.application.utils.TYPE_A
+import com.soundmeter.application.utils.TYPE_C
+import com.soundmeter.application.utils.Timer
+import com.soundmeter.application.utils.requestLocationPermission
+import com.soundmeter.application.utils.requestMicPermission
 import com.soundmeter.application.view.list.ListDataActivity
 import dagger.hilt.android.AndroidEntryPoint
 import org.threeten.bp.Instant
@@ -51,6 +52,7 @@ class RecordingActivity : AppCompatActivity(), Timer.OnTimerTickListener {
     private val df1 = DecimalFormat("####.0")
 
     private var listSample = ArrayList<Pair<String, String>>()
+    private var locationClient: FusedLocationProviderClient? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,13 +64,28 @@ class RecordingActivity : AppCompatActivity(), Timer.OnTimerTickListener {
         timer = Timer(this)
     }
 
+    override fun onResume() {
+        super.onResume()
+        this.requestLocationPermission {
+            locationClient = LocationServices.getFusedLocationProviderClient(this)
+            locationClient?.lastLocation?.addOnSuccessListener {
+                Hawk.put(LATITUDE, it.latitude)
+                Hawk.put(LONGITUDE, it.longitude)
+            }
+        }
+    }
+
     private fun initListener() {
 
         with(binding) {
 
             btnStart.setOnClickListener {
                 listSample.clear()
-                requestMicPermission()
+                requestMicPermission {
+                    startRecording()
+                    setIsRecording(true)
+                    timer.start(speed, type)
+                }
             }
 
             btnStop.setOnClickListener {
@@ -82,6 +99,7 @@ class RecordingActivity : AppCompatActivity(), Timer.OnTimerTickListener {
                         viewModel.insertData(
                             it.first, it.second,
                             DateUtils.getDateFromMillis(System.currentTimeMillis()),
+                            System.currentTimeMillis(),
                             tvMin.text.toString(), tvMax.text.toString(), listSample
                         )
                     }
@@ -108,53 +126,6 @@ class RecordingActivity : AppCompatActivity(), Timer.OnTimerTickListener {
             swType.isClickable = !record
             swSpeed.isClickable = !record
         }
-    }
-
-    private fun requestMicPermission() {
-
-        val listPermission =
-            listOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-
-        Dexter.withContext(this).withPermissions(listPermission)
-            .withListener(object : MultiplePermissionsListener {
-                override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
-
-                    report?.let {
-                        when {
-                            report.areAllPermissionsGranted() -> {
-                                startRecording()
-                                setIsRecording(true)
-                                timer.start(speed, type)
-                            }
-                            report.isAnyPermissionPermanentlyDenied -> {
-                                try {
-                                    val intent =
-                                        Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                                    val uri = Uri.fromParts(
-                                        "package",
-                                        this@RecordingActivity.packageName,
-                                        null
-                                    )
-                                    intent.data = uri
-                                    ContextCompat.startActivity(this@RecordingActivity, intent, null)
-                                } catch (e: ActivityNotFoundException) {
-                                    e.printStackTrace()
-                                }
-                            }
-                        }
-                    }
-                }
-
-                override fun onPermissionRationaleShouldBeShown(
-                    p0: MutableList<PermissionRequest>?,
-                    p1: PermissionToken?
-                ) {
-                    p1?.continuePermissionRequest()
-                }
-            })
-            .withErrorListener {
-                Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
-            }.check()
     }
 
     private fun startRecording() {
@@ -228,6 +199,7 @@ class RecordingActivity : AppCompatActivity(), Timer.OnTimerTickListener {
                     if (mDbCount > maxDB) maxDB = mDbCount
                 }
             }
+
             TYPE_C -> {
                 if (mDbCount in 50f..130f) {
                     if (minDB < 50) minDB = mDbCount

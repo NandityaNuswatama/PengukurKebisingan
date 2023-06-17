@@ -2,26 +2,19 @@ package com.soundmeter.application.view.list
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Rect
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
-import androidx.recyclerview.widget.RecyclerView
 import com.soundmeter.application.R
-import com.soundmeter.application.data.SoundEntity
+import com.soundmeter.application.data.local.SoundEntity
 import com.soundmeter.application.databinding.ActivityListDataBinding
 import com.soundmeter.application.utils.BottomSheetWarning
 import com.soundmeter.application.utils.FileUtils
 import com.soundmeter.application.utils.csvFileName
 import com.soundmeter.application.view.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint

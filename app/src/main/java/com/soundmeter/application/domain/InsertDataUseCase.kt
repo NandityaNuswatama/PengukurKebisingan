@@ -1,6 +1,6 @@
 package com.soundmeter.application.domain
 
-import com.soundmeter.application.data.SoundEntity
+import com.soundmeter.application.data.local.SoundEntity
 import javax.inject.Inject
 
 class InsertDataUseCase@Inject constructor(

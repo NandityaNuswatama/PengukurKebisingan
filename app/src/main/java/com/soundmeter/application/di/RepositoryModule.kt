@@ -1,6 +1,6 @@
 package com.soundmeter.application.di
 
-import com.soundmeter.application.data.LocalDataSourceImpl
+import com.soundmeter.application.data.local.LocalDataSourceImpl
 import com.soundmeter.application.domain.LocalDataSource
 import dagger.Binds
 import dagger.Module

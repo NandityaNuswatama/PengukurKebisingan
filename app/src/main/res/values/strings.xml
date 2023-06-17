@@ -8,17 +8,21 @@
     <string name="_00_00_00">00:00.00</string>
     <string name="simpan">Simpan</string>
     <string name="keterangan">Keterangan</string>
-    <string name="judul">Judul</string>
+    <string name="pengambilan_data">Waktu pengambilan data</string>
+    <string name="area">Area</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
     <string name="simpan_data">Simpan Data</string>
+    <string name="koordinat">Koordinat</string>
     <string name="batal">Batal</string>
     <string name="export_data">export data</string>
     <string name="confirm_delete_title">Apakah data ini akan dihapus?</string>
     <string name="confirm_delete_desc">Data yang dihapus tidak dapat dikembalikan</string>
 
-    <string name="max_db">Max db: <b><font fgcolor='#FF0000'>%s</font> db</b></string>
-    <string name="min_db">Min db: <b><font fgcolor='#1074B6'>%s</font> db</b></string>
-    <string name="average_db">Rata-rata db: <b><font fgcolor='#1074B6'>%s</font> db</b></string>
-    <string name="noise_db">Hasil Kebisingan: <b><font fgcolor='#1074B6'>%s</font> db</b></string>
+    <string name="max_db">Max: <b><font fgcolor='#FF0000'>%s</font> db</b></string>
+    <string name="min_db">Min: <b><font fgcolor='#1074B6'>%s</font> db</b></string>
+    <string name="average_db">Rata-rata: <b><font fgcolor='#1074B6'>%s</font> db</b></string>
+    <string name="noise_db">Kebisingan: <b><font fgcolor='#1074B6'>%s</font> db</b></string>
     <string name="waktu">Waktu</string>
     <string name="nilai">Nilai</string>
     <string name="lihat_daftar_data">Lihat Daftar Data</string>
@@ -27,4 +31,24 @@
     <string name="fast">Fast</string>
     <string name="type_a">Tipe A</string>
     <string name="tipe_c">Tipe C</string>
+    <string name="format_latitude">Latitude:\n%s</string>
+    <string name="format_longitude">Longitude:\n%s</string>
+
+    <string-array name="array_area">
+        <item>Perumahan dan pemukiman</item>
+        <item>Perdagangan dan Jasa</item>
+        <item>Perkantoran</item>
+        <item>Ruang terbuka hijau</item>
+        <item>Industri</item>
+        <item>Fasilitas umum</item>
+        <item>Rekreasi dan tempat hiburan</item>
+        <item>Bandar Udara</item>
+        <item>Stasiun Kereta Api</item>
+        <item>Pelabuhan Laut</item>
+        <item>Cagar Budaya</item>
+        <item>Lingkungan Kegiatan</item>
+        <item>Rumah Sakit</item>
+        <item>Sekolah </item>
+        <item>Tempat ibadah</item>
+    </string-array>
 </resources>

@@ -1,11 +1,13 @@
 package com.soundmeter.application.view.recording
 
 import androidx.lifecycle.ViewModel
-import com.soundmeter.application.data.SoundEntity
+import com.orhanobut.hawk.Hawk
+import com.soundmeter.application.data.local.SoundEntity
 import com.soundmeter.application.domain.InsertDataUseCase
+import com.soundmeter.application.utils.LATITUDE
+import com.soundmeter.application.utils.LONGITUDE
 import com.soundmeter.application.utils.toDoubleReplaceComma
 import dagger.hilt.android.lifecycle.HiltViewModel
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,6 +19,7 @@ class RecordingViewModel @Inject constructor(
         title: String,
         subtitle: String?,
         date: String,
+        timeStamp: Long,
         min: String,
         max: String,
         listRecord: List<Pair<String, String>>
@@ -55,12 +58,16 @@ class RecordingViewModel @Inject constructor(
             title = title,
             subtitle = subtitle.toString(),
             date = date,
+            timestamp = timeStamp,
             minDb = min,
             maxDb = max,
             averageDb = listDouble.average().toString().take(4),
             noiseDb = calculateNoise(listGrouping.sorted()).toString().take(4),
+            latitude = Hawk.get<Double>(LATITUDE).toString(),
+            longitude = Hawk.get<Double>(LONGITUDE).toString(),
             listTime = listTime,
-            listDb = listDb
+            listDb = listDb,
+            isUploaded = false
         )
 
         insertDataUseCase.invoke(data)

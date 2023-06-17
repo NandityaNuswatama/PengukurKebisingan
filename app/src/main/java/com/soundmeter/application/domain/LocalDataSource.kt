@@ -1,6 +1,6 @@
 package com.soundmeter.application.domain
 
-import com.soundmeter.application.data.SoundEntity
+import com.soundmeter.application.data.local.SoundEntity
 
 interface LocalDataSource {
     
@@ -11,4 +11,6 @@ interface LocalDataSource {
     fun getDetailData(id: Int): SoundEntity
     
     fun deleteData(id: Int)
+
+    fun updateUploaded()
 }

@@ -1,12 +1,12 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 3,
-    "identityHash": "a545d7f176b2286c040afa91fc7a2477",
+    "version": 4,
+    "identityHash": "b640644a2a249e0a3a95fc40af16de49",
     "entities": [
       {
         "tableName": "sound_data",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `subtitle` TEXT NOT NULL, `date` TEXT NOT NULL, `maxDb` TEXT NOT NULL, `minDb` TEXT NOT NULL, `averageDb` TEXT NOT NULL DEFAULT '0.0', `noiseDb` TEXT NOT NULL DEFAULT '0.0', `listTime` TEXT NOT NULL, `listDb` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `subtitle` TEXT NOT NULL, `date` TEXT NOT NULL, `maxDb` TEXT NOT NULL, `minDb` TEXT NOT NULL, `averageDb` TEXT NOT NULL DEFAULT '0.0', `noiseDb` TEXT NOT NULL DEFAULT '0.0', `listTime` TEXT NOT NULL, `listDb` TEXT NOT NULL, `latitude` TEXT NOT NULL DEFAULT '0.0', `longitude` TEXT NOT NULL DEFAULT '0.0', `timestamp` INTEGER NOT NULL DEFAULT 0, `isUploaded` INTEGER NOT NULL DEFAULT 0)",
         "fields": [
           {
             "fieldPath": "id",
@@ -69,6 +69,34 @@
             "columnName": "listDb",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'0.0'"
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'0.0'"
+          },
+          {
+            "fieldPath": "timestamp",
+            "columnName": "timestamp",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "isUploaded",
+            "columnName": "isUploaded",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
           }
         ],
         "primaryKey": {
@@ -84,7 +112,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a545d7f176b2286c040afa91fc7a2477')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b640644a2a249e0a3a95fc40af16de49')"
     ]
   }
 }

@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.content.FileProvider
 import com.github.doyaaaaaken.kotlincsv.dsl.csvWriter
-import com.soundmeter.application.data.SoundEntity
+import com.soundmeter.application.data.local.SoundEntity
 import java.io.File
 
 object FileUtils {

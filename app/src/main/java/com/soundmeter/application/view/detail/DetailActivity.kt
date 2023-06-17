@@ -3,6 +3,7 @@ package com.soundmeter.application.view.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -55,14 +56,18 @@ class DetailActivity : AppCompatActivity() {
         viewModel.detailData.observe(this) {
 
             with(binding) {
-
                 toolbar.title = it.title
-                tvSubtitle.text = it.subtitle
+                if (it.subtitle.isNotEmpty()) {
+                    tvSubtitle.visibility = View.VISIBLE
+                    tvSubtitle.text = it.subtitle
+                }
                 tvDate.text = it.date
                 tvAverage.text = getString(R.string.average_db, it.averageDb)
                 tvNoise.text = getString(R.string.noise_db, it.noiseDb)
                 tvMax.text = getString(R.string.max_db, it.maxDb)
                 tvMin.text = getString(R.string.min_db, it.minDb)
+                tvLatitude.text = getString(R.string.format_latitude, it.latitude)
+                tvLongitude.text = getString(R.string.format_longitude, it.longitude)
 
                 val timeStampDb = mutableListOf<TimeStampDb>()
                 val pairList = it.listTime.zip(it.listDb)

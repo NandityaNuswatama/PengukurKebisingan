@@ -21,6 +21,8 @@
         <item name="textAppearanceBody2">@style/Body2</item>
 
         <item name="android:listDivider">@drawable/divider</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
 
     <style name="Headline1" parent="TextAppearance.MaterialComponents.Headline1">
@@ -81,5 +83,16 @@
         <item name="titleTextAppearance">?attr/textAppearanceHeadline2</item>
         <item name="navigationIconTint">?attr/colorOnSecondary</item>
         <item name="elevation">4dp</item>
+    </style>
+
+    <style name="BottomSheetTheme" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="android:background">@drawable/bg_bottom_sheet</item>
+        <item name="backgroundTint">@color/transparent</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme" parent="Theme.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetTheme</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
 </resources>

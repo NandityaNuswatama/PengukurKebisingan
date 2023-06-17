@@ -2,9 +2,9 @@ package com.soundmeter.application.di
 
 import android.content.Context
 import androidx.room.Room
-import com.soundmeter.application.data.AppDatabase
-import com.soundmeter.application.data.SharedPreferenceManager
-import com.soundmeter.application.data.SoundDao
+import com.soundmeter.application.data.local.AppDatabase
+import com.soundmeter.application.data.local.SharedPreferenceManager
+import com.soundmeter.application.data.local.SoundDao
 import com.soundmeter.application.utils.appPreferencesName
 import dagger.Module
 import dagger.Provides
@@ -33,6 +33,7 @@ class LocalModule {
     fun provideRoomDatabase(@ApplicationContext context: Context): AppDatabase =
         Room.databaseBuilder(context, AppDatabase::class.java, "soundmeter.db")
             .allowMainThreadQueries()
+            .addMigrations(AppDatabase.migration_3_4)
             .fallbackToDestructiveMigration()
             .build()
     
