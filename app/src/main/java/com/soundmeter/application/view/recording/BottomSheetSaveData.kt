@@ -1,6 +1,5 @@
 package com.soundmeter.application.view.recording
 
-import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +9,11 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.orhanobut.hawk.Hawk
+import com.soundmeter.application.R
 import com.soundmeter.application.databinding.BottomSheetSaveDataBinding
 import com.soundmeter.application.utils.DateUtils
 import com.soundmeter.application.utils.LATITUDE
 import com.soundmeter.application.utils.LONGITUDE
-
 
 class BottomSheetSaveData : BottomSheetDialogFragment() {
     private var _binding: BottomSheetSaveDataBinding? = null
@@ -50,8 +49,8 @@ class BottomSheetSaveData : BottomSheetDialogFragment() {
     private fun initView() {
         isCancelable = false
         with(binding) {
-            val areas = resources.getStringArray(com.soundmeter.application.R.array.array_area)
-            val adapter: ArrayAdapter<String> = ArrayAdapter<String>(requireActivity(), R.layout.simple_list_item_1, areas)
+            val areas = resources.getStringArray(R.array.array_area)
+            val adapter: ArrayAdapter<String> = ArrayAdapter<String>(requireActivity(), android.R.layout.simple_list_item_1, areas)
             edtArea.setAdapter(adapter)
             edtDate.setText(DateUtils.getDateFromMillis(System.currentTimeMillis()))
             edtLatitude.setText(Hawk.get<Double>(LATITUDE).toString())
@@ -85,7 +84,6 @@ class BottomSheetSaveData : BottomSheetDialogFragment() {
         }
 
         fun show() {
-
             val dialog = BottomSheetSaveData()
 
             okListener?.let {

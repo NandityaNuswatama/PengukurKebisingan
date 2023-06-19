@@ -3,7 +3,6 @@ package com.soundmeter.application.view.recording
 import android.media.MediaRecorder
 import android.os.Build
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -168,9 +167,10 @@ class RecordingActivity : AppCompatActivity(), Timer.OnTimerTickListener {
 
             try {
                 prepare()
-
             } catch (e: IOException) {
-                Toast.makeText(this@RecordingActivity, e.message.toString(), Toast.LENGTH_SHORT).show()
+                showSnackBarWithAction(binding.root, this@RecordingActivity, e.message.toString(),
+                    false, getString(R.string.retry)
+                ) { startRecording() }
             }
 
             start()
@@ -190,7 +190,6 @@ class RecordingActivity : AppCompatActivity(), Timer.OnTimerTickListener {
             }
         } else {
             if (volume in 315..3162280) {
-
                 countDb(volume, type)
             }
         }

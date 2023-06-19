@@ -40,7 +40,7 @@ class WebViewActivity : AppCompatActivity() {
     }
 
     private fun loadWeb() {
-        val url = "https://www.wikipedia.org/"
+        val url = "https://www.pengukurkebisingan.com/"
         with(binding) {
             webView.webViewClient = object : WebViewClient() {
                 override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {

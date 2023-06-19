@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
@@ -44,7 +43,6 @@ class ListDataActivity : AppCompatActivity() {
     
     private fun initView() {
         viewModel.getListData()
-        
         with(binding.rvSound) {
             adapter = soundAdapter
         }
@@ -57,20 +55,24 @@ class ListDataActivity : AppCompatActivity() {
             listSounds.addAll(sounds)
             soundAdapter.submitList(sounds)
             soundAdapter.notifyDataSetChanged()
-            if (listSounds.any { !it.isUploaded } && listSounds.isNotEmpty()) binding.fabUpload.visibility = View.VISIBLE
+            binding.fabUpload.visibility = if (listSounds.any { !it.isUploaded } && listSounds.isNotEmpty()) View.VISIBLE else View.GONE
+            toggleLoading(false)
         }
 
         viewModel.onSuccessDelete.observe(this) {
+            toggleLoading(false)
             showSnackBarWithAction(binding.root, this, getString(R.string.delete_success), true, getString(R.string.ok)) {}
         }
 
         viewModel.onSuccessUpload.observe(this) {
+            toggleLoading(false)
             showSnackBarWithAction(binding.root, this, getString(R.string.upload_success), true, getString(R.string.see)) {
                 WebViewActivity.start(this)
             }
         }
 
         viewModel.onFailureUpload.observe(this) {
+            toggleLoading(false)
             showSnackBarWithAction(binding.root, this, getString(R.string.upload_failure, it), false, getString(R.string.retry)) {
                 viewModel.uploadData(listSounds)
             }
@@ -97,6 +99,7 @@ class ListDataActivity : AppCompatActivity() {
                     .setTitle(getString(R.string.confirm_delete_title))
                     .setMessage(getString(R.string.confirm_delete_desc))
                     .setPositive {
+                        toggleLoading(true)
                         viewModel.delete(it)
                     }
                     .show()
@@ -107,6 +110,7 @@ class ListDataActivity : AppCompatActivity() {
                     .setTitle(getString(R.string.confirm_upload_title))
                     .setMessage(getString(R.string.confirm_upload_desc))
                     .setPositive(getString(R.string.upload)) {
+                        toggleLoading(true)
                         viewModel.uploadData(listSounds)
                     }
                     .show()
@@ -115,16 +119,25 @@ class ListDataActivity : AppCompatActivity() {
     }
     
     private fun exportDatabaseToCSVFile() {
+        toggleLoading(true)
         val csvFile = FileUtils.generateFile(this, csvFileName)
         if (csvFile != null) {
-            
             FileUtils.exportMoviesWithDirectorsToCSVFile(csvFile, listSounds)
-            
-            Toast.makeText(this, "CSV Successfully Generated", Toast.LENGTH_LONG).show()
-            val intent = FileUtils.goToFileIntent(this, csvFile)
-            startActivity(intent)
+            toggleLoading(false)
+            showSnackBarWithAction(binding.root, this, getString(R.string.csv_success), true, getString(R.string.see)) {
+                val intent = FileUtils.goToFileIntent(this, csvFile)
+                startActivity(intent)
+            }
         } else {
-            Toast.makeText(this, "CSV Failed to Generated", Toast.LENGTH_LONG).show()
+            showSnackBarWithAction(binding.root, this, getString(R.string.csv_failed), false, getString(R.string.retry)) {
+                exportDatabaseToCSVFile()
+            }
+        }
+    }
+
+    private fun toggleLoading(show: Boolean) {
+        with(binding.progressBar) {
+            visibility = if (show) View.VISIBLE else View.GONE
         }
     }
     

@@ -20,7 +20,10 @@ fun showSnackBarWithAction(view: View, context: Context, message: String, isSucc
     snackBarText.apply {
         textSize = 12f
     }
-    snackBarAction.setTextColor(ContextCompat.getColor(context, R.color.white))
+    snackBarAction.apply {
+        isAllCaps = false
+        setTextColor(ContextCompat.getColor(context, R.color.white))
+    }
     paramView.layoutParams = params
     paramView.background = ContextCompat.getDrawable(context, background)
     snackBar.apply {

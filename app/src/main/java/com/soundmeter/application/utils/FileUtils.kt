@@ -8,18 +8,18 @@ import com.soundmeter.application.data.local.SoundEntity
 import java.io.File
 
 object FileUtils {
-    
+
     fun generateFile(context: Context, fileName: String): File? {
         val csvFile = File(context.filesDir, fileName)
         csvFile.createNewFile()
-        
+
         return if (csvFile.exists()) {
             csvFile
         } else {
             null
         }
     }
-    
+
     fun goToFileIntent(context: Context, file: File): Intent {
         val intent = Intent(Intent.ACTION_VIEW)
         val contentUri =
@@ -28,10 +28,10 @@ object FileUtils {
         intent.setDataAndType(contentUri, mimeType)
         intent.flags =
             Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-        
+
         return intent
     }
-    
+
     fun exportMoviesWithDirectorsToCSVFile(csvFile: File, listSounds: List<SoundEntity>) {
         csvWriter().open(csvFile, append = false) {
             // Header
@@ -45,15 +45,15 @@ object FileUtils {
                     "[Minimum dB]",
                     "[Waktu dB]",
                     "[Nilai dB]",
-                    "[Latitude]",
-                    "[Longitude]"
+                    "[Latitude Longitude]",
                 )
             )
             listSounds.forEachIndexed { index, sound ->
                 writeRow(
-                    listOf(index + 1, sound.title, sound.subtitle, sound.date,
+                    listOf(
+                        index + 1, sound.title, sound.subtitle, sound.date,
                         sound.maxDb, sound.minDb, sound.listTime, sound.listDb,
-                        sound.latitude, sound.longitude
+                        "${sound.latitude}, ${sound.longitude}"
                     )
                 )
             }

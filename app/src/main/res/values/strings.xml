@@ -44,6 +44,8 @@
     <string name="save_success">Data berhasil disimpan</string>
     <string name="delete_success">Data telah dihapus</string>
     <string name="upload_failure">Data gagal diunggah karena %s</string>
+    <string name="csv_success">File CSV berhasil dibuat</string>
+    <string name="csv_failed">File CSV gagal dibuat</string>
 
     <string-array name="array_area">
         <item>Perumahan dan pemukiman</item>
