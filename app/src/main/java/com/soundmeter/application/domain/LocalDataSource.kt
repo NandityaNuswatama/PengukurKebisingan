@@ -12,5 +12,5 @@ interface LocalDataSource {
     
     fun deleteData(id: Int)
 
-    fun updateUploaded()
+    fun updateUploaded(id: Int)
 }

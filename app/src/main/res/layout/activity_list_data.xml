@@ -8,14 +8,14 @@
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
+        style="@style/ToolbarNavTheme"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
-        style="@style/ToolbarNavTheme"
-        app:title="Daftar Data"
-        app:menu="@menu/export_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/export_menu"
+        app:title="Daftar Data"
         tools:ignore="RtlSymmetry" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -23,24 +23,40 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="8dp"
+        android:orientation="vertical"
         android:paddingBottom="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="vertical"
-        tools:listitem="@layout/item_sound"
-        tools:itemCount="5"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_sound" />
 
     <ImageView
         android:id="@+id/imgEmpty"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/img_empty_data"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/img_empty_data" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabUpload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:text="@string/upload"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:icon="@drawable/ic_upload"
+        app:iconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

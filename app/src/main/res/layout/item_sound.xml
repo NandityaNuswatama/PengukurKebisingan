@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:cardElevation="4dp"
-    app:cardCornerRadius="14dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    >
+    app:cardCornerRadius="14dp"
+    app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,23 +17,38 @@
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
             android:textAppearance="?attr/textAppearanceHeadline3"
             android:textColor="@color/blue_accent"
-            tools:text="Contoh Judul"
-            android:layout_marginHorizontal="8dp"
+            app:layout_constraintEnd_toStartOf="@id/btnDelete"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnDelete"/>
+            tools:text="Contoh Judul" />
 
         <TextView
             android:id="@+id/tvDate"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceBody1"
-            tools:text="Contoh tanggal"
             android:layout_marginTop="8dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintEnd_toStartOf="@id/btnDelete"
+            app:layout_constraintStart_toStartOf="@id/tvTitle"
             app:layout_constraintTop_toBottomOf="@id/tvTitle"
-            app:layout_constraintStart_toStartOf="@id/tvTitle" />
+            tools:text="Contoh tanggal" />
+
+        <TextView
+            android:id="@+id/tvDateUploaded"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:textColor="@color/dark_orange"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintEnd_toStartOf="@id/btnDelete"
+            app:layout_constraintStart_toStartOf="@id/tvTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvDate"
+            tools:text="Diunggah tanggal" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnDelete"
@@ -42,12 +56,12 @@
             android:layout_width="48dp"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            app:strokeColor="@android:color/transparent"
             app:icon="@drawable/ic_delete"
-            app:iconTint="@android:color/holo_red_light"
             app:iconGravity="end"
-            app:layout_constraintTop_toTopOf="parent"
+            app:iconTint="@android:color/holo_red_light"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@android:color/transparent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

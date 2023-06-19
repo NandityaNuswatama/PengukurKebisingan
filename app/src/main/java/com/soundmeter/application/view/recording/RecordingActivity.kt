@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.orhanobut.hawk.Hawk
+import com.soundmeter.application.R
 import com.soundmeter.application.databinding.ActivityRecordingBinding
 import com.soundmeter.application.utils.DateUtils
 import com.soundmeter.application.utils.FAST
@@ -20,7 +21,9 @@ import com.soundmeter.application.utils.TYPE_C
 import com.soundmeter.application.utils.Timer
 import com.soundmeter.application.utils.requestLocationPermission
 import com.soundmeter.application.utils.requestMicPermission
+import com.soundmeter.application.utils.showSnackBarWithAction
 import com.soundmeter.application.view.list.ListDataActivity
+import com.soundmeter.application.view.webview.WebViewActivity
 import dagger.hilt.android.AndroidEntryPoint
 import org.threeten.bp.Instant
 import java.io.IOException
@@ -60,6 +63,7 @@ class RecordingActivity : AppCompatActivity(), Timer.OnTimerTickListener {
         setContentView(binding.root)
 
         initListener()
+        initObserver()
 
         timer = Timer(this)
     }
@@ -110,12 +114,24 @@ class RecordingActivity : AppCompatActivity(), Timer.OnTimerTickListener {
                 ListDataActivity.start(this@RecordingActivity)
             }
 
+            btnSeeData.setOnClickListener {
+                WebViewActivity.start(this@RecordingActivity)
+            }
+
             swSpeed.setOnCheckedChangeListener { _, isChecked ->
                 speed = if (isChecked) SLOW else FAST
             }
 
             swType.setOnCheckedChangeListener { _, isChecked ->
                 type = if (isChecked) TYPE_C else TYPE_A
+            }
+        }
+    }
+
+    private fun initObserver() {
+        viewModel.onSuccessInsert.observe(this) {
+            showSnackBarWithAction(binding.root, this, getString(R.string.save_success), true, getString(R.string.see)) {
+                ListDataActivity.start(this)
             }
         }
     }

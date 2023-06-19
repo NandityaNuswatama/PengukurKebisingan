@@ -1,10 +1,12 @@
 package com.soundmeter.application.view.list
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.soundmeter.application.R
 import com.soundmeter.application.data.local.SoundEntity
 import com.soundmeter.application.databinding.ItemSoundBinding
 
@@ -19,6 +21,10 @@ class SoundAdapter: ListAdapter<SoundEntity, SoundAdapter.SoundViewHolder>(Sound
                 
                 tvTitle.text = item.title
                 tvDate.text = item.date
+                tvDateUploaded.apply {
+                    if (item.uploadedDate != "") visibility = View.VISIBLE
+                    text = context.getString(R.string.format_uploaded_date, item.uploadedDate)
+                }
                 
                 root.setOnClickListener {
                     onItemClick?.invoke(item.id)

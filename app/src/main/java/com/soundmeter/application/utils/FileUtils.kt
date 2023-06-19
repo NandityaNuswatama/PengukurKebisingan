@@ -45,12 +45,15 @@ object FileUtils {
                     "[Minimum dB]",
                     "[Waktu dB]",
                     "[Nilai dB]",
+                    "[Latitude]",
+                    "[Longitude]"
                 )
             )
             listSounds.forEachIndexed { index, sound ->
                 writeRow(
                     listOf(index + 1, sound.title, sound.subtitle, sound.date,
-                        sound.maxDb, sound.minDb, sound.listTime, sound.listDb
+                        sound.maxDb, sound.minDb, sound.listTime, sound.listDb,
+                        sound.latitude, sound.longitude
                     )
                 )
             }

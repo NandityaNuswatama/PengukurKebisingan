@@ -19,4 +19,7 @@ interface SoundDao {
     
     @Query("DELETE FROM sound_data WHERE id=:id")
     suspend fun deleteData(id: Int)
+
+    @Query("UPDATE sound_data SET isUploaded = :isUploaded, uploadedDate =:uploadedDate WHERE id = :id")
+    suspend fun updateUploadStatus(id: Int, isUploaded: Boolean, uploadedDate: String)
 }

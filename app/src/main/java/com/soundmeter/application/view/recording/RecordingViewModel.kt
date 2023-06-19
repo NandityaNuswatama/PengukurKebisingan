@@ -1,5 +1,7 @@
 package com.soundmeter.application.view.recording
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.orhanobut.hawk.Hawk
 import com.soundmeter.application.data.local.SoundEntity
@@ -14,6 +16,10 @@ import javax.inject.Inject
 class RecordingViewModel @Inject constructor(
     private val insertDataUseCase: InsertDataUseCase,
 ) : ViewModel() {
+
+
+    private val _onSuccessInsert = MutableLiveData<Any>()
+    val onSuccessInsert: LiveData<Any> get() = _onSuccessInsert
 
     fun insertData(
         title: String,
@@ -52,7 +58,6 @@ class RecordingViewModel @Inject constructor(
             if (db in 110.0..114.9) listGrouping.add(110.0)
         }
 
-
         val data = SoundEntity(
             id = 0,
             title = title,
@@ -67,10 +72,12 @@ class RecordingViewModel @Inject constructor(
             longitude = Hawk.get<Double>(LONGITUDE).toString(),
             listTime = listTime,
             listDb = listDb,
-            isUploaded = false
+            isUploaded = false,
+            uploadedDate = ""
         )
 
         insertDataUseCase.invoke(data)
+        _onSuccessInsert.value = true
     }
 
     private fun calculateNoise(listGrouping: List<Double>): Double {

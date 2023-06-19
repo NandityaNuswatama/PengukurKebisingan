@@ -28,4 +28,6 @@ data class SoundEntity (
     var timestamp: Long,
     @ColumnInfo(defaultValue = "0")
     var isUploaded: Boolean,
+    @ColumnInfo(defaultValue = "")
+    var uploadedDate: String,
 )

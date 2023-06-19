@@ -18,6 +18,8 @@
     <string name="export_data">export data</string>
     <string name="confirm_delete_title">Apakah data ini akan dihapus?</string>
     <string name="confirm_delete_desc">Data yang dihapus tidak dapat dikembalikan</string>
+    <string name="confirm_upload_title">Unggah data</string>
+    <string name="confirm_upload_desc">Apakah anda yakin ingin mengunggah data-data di atas?</string>
 
     <string name="max_db">Max: <b><font fgcolor='#FF0000'>%s</font> db</b></string>
     <string name="min_db">Min: <b><font fgcolor='#1074B6'>%s</font> db</b></string>
@@ -25,7 +27,8 @@
     <string name="noise_db">Kebisingan: <b><font fgcolor='#1074B6'>%s</font> db</b></string>
     <string name="waktu">Waktu</string>
     <string name="nilai">Nilai</string>
-    <string name="lihat_daftar_data">Lihat Daftar Data</string>
+    <string name="lihat_daftar_data">Lihat Daftar Dataku</string>
+    <string name="lihat_data_database">Lihat Data Database</string>
     <string name="ok">OK</string>
     <string name="slow">Slow</string>
     <string name="fast">Fast</string>
@@ -33,6 +36,14 @@
     <string name="tipe_c">Tipe C</string>
     <string name="format_latitude">Latitude:\n%s</string>
     <string name="format_longitude">Longitude:\n%s</string>
+    <string name="format_uploaded_date">Diunggah pada: %s</string>
+    <string name="upload">Unggah</string>
+    <string name="see">lihat</string>
+    <string name="retry">ulangi</string>
+    <string name="upload_success">Data berhasil diunggah</string>
+    <string name="save_success">Data berhasil disimpan</string>
+    <string name="delete_success">Data telah dihapus</string>
+    <string name="upload_failure">Data gagal diunggah karena %s</string>
 
     <string-array name="array_area">
         <item>Perumahan dan pemukiman</item>

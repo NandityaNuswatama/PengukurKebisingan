@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 4,
+    "version": 5,
     "identityHash": "1d11766e358bc66c632ab50e31395e41",
     "entities": [
       {
@@ -97,6 +97,13 @@
             "affinity": "INTEGER",
             "notNull": true,
             "defaultValue": "0"
+          },
+          {
+            "fieldPath": "uploadedDate",
+            "columnName": "uploadedDate",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
           }
         ],
         "primaryKey": {

@@ -19,15 +19,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PengukurKebisingan">
         <activity
+            android:name=".view.webview.WebViewActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".view.detail.DetailActivity"
-            android:exported="false" />
+
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.list.ListDataActivity"
-            android:exported="false" />
+
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.recording.RecordingActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

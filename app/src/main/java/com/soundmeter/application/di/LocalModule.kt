@@ -33,7 +33,7 @@ class LocalModule {
     fun provideRoomDatabase(@ApplicationContext context: Context): AppDatabase =
         Room.databaseBuilder(context, AppDatabase::class.java, "soundmeter.db")
             .allowMainThreadQueries()
-            .addMigrations(AppDatabase.migration_3_4)
+            .addMigrations(AppDatabase.migration_4_5)
             .fallbackToDestructiveMigration()
             .build()
     
