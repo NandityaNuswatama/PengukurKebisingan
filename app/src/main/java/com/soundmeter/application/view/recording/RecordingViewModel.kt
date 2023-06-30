@@ -38,24 +38,10 @@ class RecordingViewModel @Inject constructor(
         val listDouble = listDb.map { it.toDoubleReplaceComma() }
         val listGrouping = mutableListOf<Double>()
 
-        listDouble.forEach { db ->
-            if (db in 30.0..34.9) listGrouping.add(30.0)
-            if (db in 35.0..39.9) listGrouping.add(35.0)
-            if (db in 40.0..44.9) listGrouping.add(40.0)
-            if (db in 45.0..49.9) listGrouping.add(45.0)
-            if (db in 50.0..54.9) listGrouping.add(50.0)
-            if (db in 55.0..59.9) listGrouping.add(55.0)
-            if (db in 60.0..64.9) listGrouping.add(60.0)
-            if (db in 65.0..69.9) listGrouping.add(65.0)
-            if (db in 70.0..74.9) listGrouping.add(70.0)
-            if (db in 75.0..79.9) listGrouping.add(75.0)
-            if (db in 80.0..84.9) listGrouping.add(80.0)
-            if (db in 85.0..89.9) listGrouping.add(85.0)
-            if (db in 90.0..94.9) listGrouping.add(90.0)
-            if (db in 95.0..99.9) listGrouping.add(95.0)
-            if (db in 100.0..104.9) listGrouping.add(100.0)
-            if (db in 105.0..109.9) listGrouping.add(105.0)
-            if (db in 110.0..114.9) listGrouping.add(110.0)
+        for (db in listDouble) {
+            val range = (db / 5).toInt() * 5
+            val grouping = range.coerceIn(30, 110).toDouble()
+            listGrouping.add(grouping)
         }
 
         val data = SoundEntity(

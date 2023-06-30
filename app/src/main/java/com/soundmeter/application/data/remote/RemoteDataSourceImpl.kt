@@ -17,7 +17,7 @@ class RemoteDataSourceImpl @Inject constructor() : RemoteDataSource {
 
     override fun uploadData(soundEntity: SoundEntity, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
         val recordings = mutableMapOf<String, Double>()
-        soundEntity.listDb.reversed().forEachIndexed { index, db ->
+        soundEntity.listDb.forEachIndexed { index, db ->
             recordings[soundEntity.listTime[index]] = db.toDouble()
         }
         val soundHash = hashMapOf(
